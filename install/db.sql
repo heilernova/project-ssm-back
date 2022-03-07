@@ -17,6 +17,7 @@ CREATE TABLE `tb_persons`
 (
     `dni` VARCHAR(15) PRIMARY KEY,
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL, -- usuario que lo registro
     `name` VARCHAR(20) NOT NULL,
     `lastName` VARCHAR(20) NOT NULL,
     `cellphone` VARCHAR(20) NOT NULL,
@@ -55,6 +56,7 @@ CREATE TABLE `tb_request`
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL,
     `service` INT,
     `request` VARCHAR(100) NOT NULL,
     `accompaniment` VARCHAR(100) NOT NULL,
