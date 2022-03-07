@@ -11,6 +11,14 @@ CREATE TABLE `tb_users`
     `rule` TINYINT NOT NULL
 );
 
+-- EPS
+DROP TABLE if EXISTS `tb_ips`;
+CREATE TABLE `tb_ips`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL
+);
+
 -- Datos de la personas
 DROP TABLE if EXISTS `tb_persons`;
 CREATE TABLE `tb_persons`
