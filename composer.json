@@ -1,0 +1,19 @@
+{
+    "name": "hielernova",
+    "autoload": {
+        "psr-4": {
+        }
+    },
+    "authors": [
+        {
+            "name": "HeilerNova",
+            "homepage": "https://github.com/heilernova/"
+        }
+    ],
+    "require": {
+        "hnova/api": "dev-main"
+    },
+    "scripts": {
+        "nv": "HNova\\Api\\Scripts\\Script::execute"
+    }
+}
