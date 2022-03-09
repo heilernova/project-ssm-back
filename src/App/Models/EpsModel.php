@@ -2,7 +2,7 @@
 /**
  * Clase modelo para intercturar con la base de datos.
  */
-namespace App\Controllers;
+namespace App\Models;
 
 use App\AppBaseModel;
 use App\Templates\Db\EpsDB;
@@ -35,11 +35,17 @@ class EpsModel extends AppBaseModel
     /**
      * Registra los datos de la eps en la base de datos.
      */
-    public function add(EpsDB $eps):bool
+    public function add(EpsDB $eps):?EpsDB
     {
-        $ok = $this->database->insert($eps)->result;
-        if ($ok) $this->database->commit();
-        return $ok;
+        
+        $ok = $this->database->insert($eps);
+        if ($ok->result) {
+            $this->database->commit();
+            $eps->id = $ok->insertId;
+            return $eps;
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -60,5 +66,13 @@ class EpsModel extends AppBaseModel
         $ok = $this->database->update(["desable"=>false], ["id=?", [$id]])->result;
         if ($ok) $this->database->commit();
         return $ok;
+    }
+
+    /**
+     * Valida que el nombre de la EPS no se encutre registrado.
+     */
+    public function validName(string $name):bool
+    {
+        return $this->database->query("SELECT * FROM tb_eps WHERE `name`=?", [$name])->num_rows == 1;
     }
 }
