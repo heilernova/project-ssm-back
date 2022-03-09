@@ -39,10 +39,10 @@ CREATE TABLE `tb_persons`
 );
 
 -- Lista de servicios
-DROP TABLE if EXISTS `services`;
-CREATE TABLE `services`
+DROP TABLE if EXISTS `tb_services`;
+CREATE TABLE `tb_services`
 (
-    `id` INT PRIMARY AUTO_INCREMENT,
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
     `description` VARCHAR(50) NOT NULL
 );
 
