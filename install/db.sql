@@ -35,20 +35,7 @@ CREATE TABLE `tb_persons`
     `address` VARCHAR(50),
     `eps` INT NOT NULL,
     `sisben` BIT,
-    `regime` BIT,
-    `lgtbi` BIT,
-    `Afrodescendent` BIT,
-    `palenRaizan` BIT,
-    `roomGintano` BIT,
-    `disabled` BIT, -- Discapacitado.
-    `pregnant` BIT, -- Mujer en gestación
-    `womenHeadHousehold` BIT, -- Mujer cabeza de hogar
-    `nnaNunaccompaniedAdult` BIT,
-    `victim` BIT, -- Victima
-    `displaced` BIT, -- Desplazado
-    `demobilized` BIT, -- desmovilizado
-    `reinserted` BIT, -- Reincertado
-    `olderAdult` BIT -- Adulto mayor
+    `regime` BIT
 );
 
 -- Lista de servicios
