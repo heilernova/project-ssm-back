@@ -13,8 +13,8 @@ CREATE TABLE `tb_users`
 );
 
 -- EPS
-DROP TABLE if EXISTS `tb_ips`;
-CREATE TABLE `tb_ips`
+DROP TABLE if EXISTS `tb_eps`;
+CREATE TABLE `tb_eps`
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL
