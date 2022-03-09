@@ -13,7 +13,7 @@ use HNova\Api\Response;
 
 class AuthController extends AppBaseController
 {
-    function get():Response
+    function autenticate():Response
     {
         $data = $this->getBody(); // Retorna un objecto con [ username, password ]
         
@@ -33,6 +33,7 @@ class AuthController extends AppBaseController
                 $toke = ApiFunctions::generateToken(50);
                 $ok = $this->database->update(['token'=>$toke], ["id=?", $user['id']], 'tb_users')->result;
                 if ($ok){
+                    $this->database->commit();
                     $res->data = [
                         "token" => $toke,   
                         "username" => $user["username"],
