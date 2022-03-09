@@ -20,3 +20,14 @@ Routes::patch("eps/{id:int}/enable", [EpsController::class, 'enable']);
 // Rutas personas
 Routes::get("persons/{dni:string}", [PersonsController::class, 'get']);
 Routes::put("persons/{dni:string}", [PersonsController::class, 'get']);
+
+// Rutas Atención  a la comunidad
+Routes::get("attention-community", [AttentionCommunityController::class, 'getAll']);
+Routes::get("attention-community/full", [AttentionCommunityController::class, 'getFullAll']);
+Routes::post("attention-community", [AttentionCommunityController::class, 'insert']);
+
+Routes::get("attention-community/{id:int}", [AttentionCommunityController::class, 'get']);
+Routes::put("attention-community/{id:int}", [AttentionCommunityController::class, 'update']);
+Routes::delete("attention-community/{id:int}", [AttentionCommunityController::class, 'delete']);
+
+Routes::get("attention-community/users/{dni:string}", [AttentionCommunityController::class, 'getPersonInfo']);
