@@ -8,4 +8,4 @@ use App\AppGuards;
 use HNova\Api\Response;
 use HNova\Api\Routes;
 
-Routes::post("auth", [AuthController::class]);
+Routes::post("auth", [AuthController::class, 'autenticate']);
