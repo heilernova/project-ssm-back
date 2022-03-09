@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "be3754f5890b90fd0cdb65907e5398a4",
+    "content-hash": "8a8ab63383ae772d5b055403d48ffb92",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -554,12 +554,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/heilernova/php-hnova-api.git",
-                "reference": "568083b8624138b2f1571fb4cc6857d2c55a2932"
+                "reference": "abaec3be117a5ec62a58c577dc74ca84c2557343"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heilernova/php-hnova-api/zipball/568083b8624138b2f1571fb4cc6857d2c55a2932",
-                "reference": "568083b8624138b2f1571fb4cc6857d2c55a2932",
+                "url": "https://api.github.com/repos/heilernova/php-hnova-api/zipball/abaec3be117a5ec62a58c577dc74ca84c2557343",
+                "reference": "abaec3be117a5ec62a58c577dc74ca84c2557343",
                 "shasum": ""
             },
             "require": {
@@ -588,7 +588,7 @@
                 "issues": "https://github.com/heilernova/php-hnova-api/issues",
                 "source": "https://github.com/heilernova/php-hnova-api/tree/main"
             },
-            "time": "2022-03-08T22:37:32+00:00"
+            "time": "2022-03-09T16:37:29+00:00"
         },
         {
             "name": "justinrainbow/json-schema",
