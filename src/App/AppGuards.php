@@ -8,29 +8,29 @@
 
 namespace App;
 
+use App\Controllers\UsersModel;
 use HNova\Api\Response;
 
 class AppGuards
 {
     public static function authenticate():callable
     {
-        /**
-         * el guard es un función que retunr null para dar acceso al sistema.
-         * en caso de retrona un Response no se podra accesder al controlador de la ruta.
-         *
-         * en este caso todas la ruta que implemento el el guard authenticate dependerar de que el
-         * randim_int sea igual a 1 para acceder al controladroa asosiado a la ruta. 
-         */
         return function(){
-            if (random_int(1,2) == 1){
-
-                // Retornamos null para que dar acceso.
-                return null;
-            }else{
-
-                // Retornameos un Response para negar el acceso.
-                return new Response('No access',  401);
+            $header = apache_request_headers();
+            $name_header = "ssm-access-token";
+            
+            $ok = false;
+            // Validamos que el token exista
+            if (array_key_exists($name_header, $header)){
+                $model = new UsersModel();
+                $user = $model->validToken($header[$name_header]);
+                if ($user){
+                    $_ENV['user']  = $user;
+                    $ok = true;
+                }
             }
+
+            return $ok ? null : new Response("not - access", 401);
         };
     }
 }
