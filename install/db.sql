@@ -55,7 +55,6 @@ CREATE TABLE `tb_request`
     `status` BIT,
     `user` INT NOT NULL,
     `service` INT,
-    `request` VARCHAR(100) NOT NULL,
     `accompaniment` VARCHAR(100) NOT NULL,
     `eps` INT NOT NULL,
     `sisben` BIT,
