@@ -1,0 +1,41 @@
+{
+    "name": "Applicaction name",
+    "timezone": "UTC",
+    "user": {
+        "username": "admin",
+        "password": "$2y$04$A8dGLVylvwo/0eLebRIam.jJ6xLqfrnMKay2m1xB7cmptEYAyGp9.",
+        "email": null
+    },
+    "developers": [
+        {
+            "name": "Name developer",
+            "email": "email@email",
+            "homepage": null
+        }
+    ],
+    "debug": false,
+    "databases": {
+        "test": {
+            "type": "mysql",
+            "dataConnection": {
+                "hostname": "localhost",
+                "username": "root",
+                "password": "",
+                "database": "test"
+            }
+        }
+    },
+    "apis": {
+        "app": {
+            "namespace": "App",
+            "disable": false,
+            "dirResources": "",
+            "database": "test",
+            "cors": {
+                "origin": null,
+                "headers": null,
+                "methods": null
+            }
+        }
+    }
+}
