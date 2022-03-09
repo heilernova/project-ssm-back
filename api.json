@@ -13,15 +13,15 @@
             "homepage": null
         }
     ],
-    "debug": false,
+    "debug": true,
     "databases": {
-        "test": {
+        "ssm": {
             "type": "mysql",
             "dataConnection": {
                 "hostname": "localhost",
                 "username": "root",
                 "password": "",
-                "database": "test"
+                "database": "ssm"
             }
         }
     },
@@ -30,7 +30,7 @@
             "namespace": "App",
             "disable": false,
             "dirResources": "",
-            "database": "test",
+            "database": "ssm",
             "cors": {
                 "origin": null,
                 "headers": null,
