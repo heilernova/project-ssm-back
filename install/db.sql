@@ -64,6 +64,7 @@ CREATE TABLE `tb_request`
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `status` BIT,
     `user` INT NOT NULL,
     `service` INT,
     `request` VARCHAR(100) NOT NULL,
