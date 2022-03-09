@@ -16,3 +16,7 @@ Routes::get("eps/{id:int}", [EpsController::class, 'get']);
 Routes::post("eps", [EpsController::class, 'insert']);
 Routes::patch("eps/{id:int}/disable", [EpsController::class, 'disable']);
 Routes::patch("eps/{id:int}/enable", [EpsController::class, 'enable']);
+
+// Rutas personas
+Routes::get("persons/{dni:string}", [PersonsController::class, 'get']);
+Routes::put("persons/{dni:string}", [PersonsController::class, 'get']);
