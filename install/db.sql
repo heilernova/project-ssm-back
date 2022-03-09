@@ -47,8 +47,8 @@ CREATE TABLE `services`
 );
 
 -- Registro de solicitudes
-DROP TABLE if EXISTS `tb_request`;
-CREATE TABLE `tb_request`
+DROP TABLE if EXISTS `tb_requests`;
+CREATE TABLE `tb_requests`
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
@@ -59,19 +59,19 @@ CREATE TABLE `tb_request`
     `eps` INT NOT NULL,
     `sisben` BIT,
     `regime` BIT,
-    `lgtbi` BIT,
-    `Afrodescendent` BIT,
-    `palenRaizan` BIT,
-    `roomGintano` BIT,
+    `olderAdult` BIT, -- Adulto mayor
     `disabled` BIT, -- Discapacitado.
     `pregnant` BIT, -- Mujer en gestación
     `womenHeadHousehold` BIT, -- Mujer cabeza de hogar
-    `nnaNunaccompaniedAdult` BIT,
+    `Afrodescendent` BIT,
+    `lgtbi` BIT,
     `victim` BIT, -- Victima
     `displaced` BIT, -- Desplazado
     `demobilized` BIT, -- desmovilizado
     `reinserted` BIT, -- Reincertado
-    `olderAdult` BIT -- Adulto mayor
+    `palenRaizan` BIT,
+    `roomGintano` BIT,
+    `nnaNunaccompaniedAdult` BIT
 );
 
 -- Historial de las observaciones acerca de las solicitudes.
