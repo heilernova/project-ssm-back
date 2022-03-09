@@ -8,7 +8,8 @@ CREATE TABLE `tb_users`
     `email` VARCHAR(150) NOT NULL UNIQUE,
     `password` VARCHAR(400) NOT NULL,
     `token` VARCHAR(50) NOT NULL UNIQUE,
-    `rule` TINYINT NOT NULL
+    `rule` TINYINT NOT NULL,
+    `disable` BIT
 );
 
 -- EPS
