@@ -17,7 +17,8 @@ DROP TABLE if EXISTS `tb_eps`;
 CREATE TABLE `tb_eps`
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(50) NOT NULL
+    `name` VARCHAR(50) NOT NULL,
+    `disable` BIT
 );
 
 -- Datos de la personas
