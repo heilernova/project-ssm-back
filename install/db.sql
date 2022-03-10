@@ -55,6 +55,7 @@ CREATE TABLE `tb_requests`
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `status` BIT,
     `user` INT NOT NULL,
+    `dni` INT NOT NULL,
     `service` INT,
     `accompaniment` VARCHAR(100) NOT NULL,
     `eps` INT NOT NULL,
