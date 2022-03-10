@@ -31,6 +31,7 @@ CREATE TABLE `tb_persons`
     `name` VARCHAR(20) NOT NULL,
     `lastName` VARCHAR(20) NOT NULL,
     `cellphone` VARCHAR(20) NOT NULL,
+    `email` VARCHAR(150),
     `sex` BIT,
     `birthDate` DATE,
     `address` VARCHAR(50),
