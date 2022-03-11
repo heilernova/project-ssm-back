@@ -24,8 +24,10 @@ class AttentionCommunityController extends AppBaseController
 
     function getAll():Response
     {
-        $req = $this->database->query("SELECT * FROM vi_requests")->fetch_all(MYSQLI_ASSOC);
-        $obs = $this->database->query("SELECT * FROM tb_requests_observations")->fetch_all(MYSQLI_ASSOC);
+        $sql_request = "SELECT * FROM `vi_requests` WHERE `status`=1";
+        $sql_observactions = "SELECT * FROM tb_requests_observations t1 INNER JOIN tb_requests t2 ON t2.request=t1.id AND t2.`status`=1 ORDER BY t1.id ASC";
+        $req = $this->database->query($sql_request)->fetch_all(MYSQLI_ASSOC);
+        $obs = $this->database->query($sql_observactions)->fetch_all(MYSQLI_ASSOC);
 
         $req = array_map(function($item)use($obs){
             $item['observations'] = $obs['id'] ?? [];

@@ -66,7 +66,7 @@ CREATE TABLE `tb_requests`
     `disabled` BIT, -- Discapacitado.
     `pregnant` BIT, -- Mujer en gestación
     `womenHeadHousehold` BIT, -- Mujer cabeza de hogar
-    `Afrodescendent` BIT,
+    `afrodescendent` BIT,
     `lgtbi` BIT,
     `victim` BIT, -- Victima
     `displaced` BIT, -- Desplazado
