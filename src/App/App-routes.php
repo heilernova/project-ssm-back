@@ -24,7 +24,8 @@ Routes::put("persons/{dni:string}", [PersonsController::class, 'get']);
 // Rutas Atención  a la comunidad
 Routes::get("attention-community", [AttentionCommunityController::class, 'getAll']);
 Routes::get("attention-community/full", [AttentionCommunityController::class, 'getFullAll']);
-Routes::post("attention-community", [AttentionCommunityController::class, 'insert']);
+Routes::get("attention-community/services", [AttentionCommunityController::class, 'getServices']);
+Routes::post("attention-community", [AttentionCommunityController::class, 'insertRequest']);
 
 Routes::get("attention-community/{id:int}", [AttentionCommunityController::class, 'get']);
 Routes::put("attention-community/{id:int}", [AttentionCommunityController::class, 'update']);

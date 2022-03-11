@@ -31,6 +31,7 @@ CREATE TABLE `tb_persons`
     `name` VARCHAR(20) NOT NULL,
     `lastName` VARCHAR(20) NOT NULL,
     `cellphone` VARCHAR(20) NOT NULL,
+    `email` VARCHAR(150),
     `sex` BIT,
     `birthDate` DATE,
     `address` VARCHAR(50),
@@ -85,3 +86,13 @@ CREATE TABLE `tb_request_observations`
     `request` INT NOT NULL,
     `content` VARCHAR(200) NOT NULL
 );
+
+DROP VIEW if EXISTS vi_requests;
+CREATE VIEW `vi_requests` AS
+SELECT 
+t1.*,
+CONCAT(t2.`name`, ' ', t2.lastName) AS NAME,
+t2.cellphone,
+t2.email
+FROM tb_requests t1 
+INNER JOIN tb_persons t2 ON t2.dni = t1.dni;

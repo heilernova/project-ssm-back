@@ -32,7 +32,7 @@
             "dirResources": "",
             "database": "ssm",
             "cors": {
-                "origin": null,
+                "origin": "*",
                 "headers": null,
                 "methods": null
             }
