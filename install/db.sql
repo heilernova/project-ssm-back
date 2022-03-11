@@ -87,12 +87,12 @@ CREATE TABLE `tb_request_observations`
     `content` VARCHAR(200) NOT NULL
 );
 
-DROP VIEW if EXISTS vi_requests;
+DROP VIEW if EXISTS `vi_requests`;
 CREATE VIEW `vi_requests` AS
 SELECT 
-t1.*,
-CONCAT(t2.`name`, ' ', t2.lastName) AS NAME,
-t2.cellphone,
-t2.email
-FROM tb_requests t1 
-INNER JOIN tb_persons t2 ON t2.dni = t1.dni;
+`t1`.*,
+CONCAT(`t2`.`name`, ' ', `t2`.`lastName`) AS NAME,
+`t2`.`cellphone`,
+`t2`.`email`
+FROM `tb_requests` `t1` 
+INNER JOIN `tb_persons` `t2` ON `t2`.`dni` = `t1`.`dni`;
