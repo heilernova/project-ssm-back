@@ -15,6 +15,7 @@ class AttentionCommunityController extends AppBaseController
 {
     private RequestsModel $requestModel;
     private PersonsModel $personsModel;
+    
     function __construct()
     {
         $this->requestModel = new RequestsModel();
@@ -22,6 +23,9 @@ class AttentionCommunityController extends AppBaseController
         parent::__construct();
     }
 
+    /**
+     * Retorna la lista de solicitudes activas
+     */
     function getAll():Response
     {
         $sql_request = "SELECT * FROM `vi_requests` WHERE `status`=1";
@@ -37,17 +41,31 @@ class AttentionCommunityController extends AppBaseController
         return new Response($req);
     }
 
+    function getRequest(int $id):Response
+    {
+        return new Response("");
+    }
+
+    /**
+     * Retorna la información de un usuario. en caso de no encontrar información retorna un error 404.
+     */
     function getPersonInfo(string $dni)
     {
         $info = $this->requestModel->getPerson($dni);
         return new Response($info, $info ? 200 : 404);
     }
 
+    /**
+     * Inserta una nueva solicitud de asistencia al usuario.
+     * En caso de error con el registro response un error 404
+     */
     function insertRequest():Response
     {
         $data = $this->getBody();
 
         $ok_person = false;
+        $ok_request = false;
+
         if ($this->personsModel->validDNI($data->person->dni)){
             // Si existe actualizamos la información.
             $ok_person = $this->personsModel->update($data->person->dni, $data->person);
@@ -72,18 +90,23 @@ class AttentionCommunityController extends AppBaseController
         }
 
 
-        return new Response([$ok_person, $this->personsModel->database->getErrors() ]);
+        return new Response($ok_request, $ok_request ? 200 : 404);
     }
 
-
+    /**
+     * Retorna los serviscios prestando por el funcionarios
+     */
     function getServices():Response
     {
         $res = $this->database->query("SELECT * FROM tb_services")->fetch_all(MYSQLI_ASSOC);
         return new Response($res);
     }
 
+    /**
+     * Retorna la EPS registradas en el sistema que se encutren activas
+     */
     function getEPS():Response
     {
-        return new Response($this->database->query("SELECT * FROM tb_eps")->fetch_all(MYSQLI_ASSOC));
+        return new Response($this->database->query("SELECT * FROM tb_eps WHERE `disable`=0")->fetch_all(MYSQLI_ASSOC));
     }
 }
