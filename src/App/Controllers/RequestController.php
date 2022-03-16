@@ -36,6 +36,9 @@ class RequestController extends AppBaseController
      */
     function addComment(int $id):Response
     {
+        $data = $this->getBody();
+        $data->request = $id;
+        
         return new Response("");
     }
 

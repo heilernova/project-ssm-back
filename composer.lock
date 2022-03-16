@@ -554,12 +554,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/heilernova/php-hnova-api.git",
-                "reference": "03b0dcdff818ef032def111b5f2a405d31f37f35"
+                "reference": "6a5a59c96e02f6b28d5aba39d7414d93701de4b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/heilernova/php-hnova-api/zipball/03b0dcdff818ef032def111b5f2a405d31f37f35",
-                "reference": "03b0dcdff818ef032def111b5f2a405d31f37f35",
+                "url": "https://api.github.com/repos/heilernova/php-hnova-api/zipball/6a5a59c96e02f6b28d5aba39d7414d93701de4b9",
+                "reference": "6a5a59c96e02f6b28d5aba39d7414d93701de4b9",
                 "shasum": ""
             },
             "require": {
@@ -588,7 +588,7 @@
                 "issues": "https://github.com/heilernova/php-hnova-api/issues",
                 "source": "https://github.com/heilernova/php-hnova-api/tree/main"
             },
-            "time": "2022-03-09T20:47:16+00:00"
+            "time": "2022-03-10T02:22:26+00:00"
         },
         {
             "name": "justinrainbow/json-schema",

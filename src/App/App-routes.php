@@ -27,8 +27,12 @@ Routes::get("attention-community/full", [AttentionCommunityController::class, 'g
 Routes::get("attention-community/services", [AttentionCommunityController::class, 'getServices']);
 Routes::post("attention-community", [AttentionCommunityController::class, 'insertRequest']);
 
+// Registros
 Routes::get("attention-community/{id:int}", [AttentionCommunityController::class, 'get']);
 Routes::put("attention-community/{id:int}", [AttentionCommunityController::class, 'update']);
 Routes::delete("attention-community/{id:int}", [AttentionCommunityController::class, 'delete']);
+
+// Registros comentarios
+Routes::post("attention-community/{id:int}/comments", [RequestController::class, 'addComment']);
 
 Routes::get("attention-community/users/{dni:string}", [AttentionCommunityController::class, 'getPersonInfo']);
