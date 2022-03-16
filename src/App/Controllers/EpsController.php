@@ -49,12 +49,12 @@ class EpsController extends AppBaseController
 
         if (!$ok){
             $eps = new EpsDB();
-            $eps->name = $name_eps;
-            // return new Response($eps);
+            $eps->name = strtoupper($name_eps);
+
             $eps = $this->EpsModel->add($eps);
 
             if ($eps){
-
+                $res->status = true;
                 $res->data = $eps;
             }else{
 
