@@ -27,6 +27,10 @@ class EpsController extends AppBaseController
         return new Response($list);
     }
 
+    function getAllActive(){
+        return new Response($this->EpsModel->getAllActive());
+    }
+
     function get(int $id):Response
     {
         $eps = $this->EpsModel->get($id);
@@ -66,6 +70,25 @@ class EpsController extends AppBaseController
             $res->message->content[] = "La EPS ya se encuentra registrada.";
         }
 
+        return new Response($res);
+    }
+
+    public function update(int $id)
+    {
+        $data = $this->getBody();
+        $ok = $this->database->query("SELECT * FROM tb_eps WHERE `name`=? AND `id`<>?", [$data->name, $id])->num_rows == 0;
+        $res = new ResponseApi();
+
+        if ($ok){
+
+            $res->status = true;
+            $res->data = $this->EpsModel->update($id, $data);
+            $res->message->content[] = "Datos actulizados correctamente";
+
+        }else{
+            $res->message->title = "No se pudo actulizar la información";
+            $res->message->content[] = "El nombre de la EPS ya esta en uso.";
+        }
         return new Response($res);
     }
 
