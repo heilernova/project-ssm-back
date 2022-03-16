@@ -10,6 +10,8 @@ use HNova\Api\Routes;
 
 Routes::post("auth", [AuthController::class, 'autenticate']);
 
+Routes::parents('', [AppGuards::authenticate()]);
+
 // Rutas del las EPS
 Routes::get("eps", [EpsController::class, 'getAll']);
 Routes::get("eps/active", [EpsController::class, 'getAllActive']);
