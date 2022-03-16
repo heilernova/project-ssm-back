@@ -91,7 +91,7 @@ DROP VIEW if EXISTS `vi_requests`;
 CREATE VIEW `vi_requests` AS
 SELECT 
 `t1`.*,
-CONCAT(`t2`.`name`, ' ', `t2`.`lastName`) AS NAME,
+CONCAT(`t2`.`name`, ' ', `t2`.`lastName`) AS `name`,
 `t2`.`cellphone`,
 `t2`.`email`
 FROM `tb_requests` `t1` 
