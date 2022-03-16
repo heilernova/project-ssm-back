@@ -29,14 +29,18 @@ class AttentionCommunityController extends AppBaseController
     function getAll():Response
     {
         $sql_request = "SELECT * FROM `vi_requests` WHERE `status`=1";
-        $sql_observactions = "SELECT * FROM tb_requests_observations t1 INNER JOIN tb_requests t2 ON t2.request=t1.id AND t2.`status`=1 ORDER BY t1.id ASC";
+        $sql_observactions = "SELECT t1.* FROM tb_requests_observations t1 INNER JOIN tb_requests t2 ON t2.id=t1.request AND t2.`status`=1 ORDER BY t1.id ASC";
         $req = $this->database->query($sql_request)->fetch_all(MYSQLI_ASSOC);
         $obs = $this->database->query($sql_observactions)->fetch_all(MYSQLI_ASSOC);
 
         $req = array_map(function($item)use($obs){
-            $item['observations'] = $obs['id'] ?? [];
+            $item['observations'] = array_filter($obs,function($item)
+            {
+                return $item["request"] = $item["id"];
+            });
             return $item;
         }, $req);
+        
 
         return new Response($req);
     }
@@ -52,7 +56,7 @@ class AttentionCommunityController extends AppBaseController
     function getPersonInfo(string $dni)
     {
         $info = $this->requestModel->getPerson($dni);
-        return new Response($info, $info ? 200 : 404);
+        return new Response($info);
     }
 
     /**
@@ -90,7 +94,7 @@ class AttentionCommunityController extends AppBaseController
         }
 
 
-        return new Response($ok_request, $ok_request ? 200 : 404);
+        return new Response($ok_request);
     }
 
     /**
