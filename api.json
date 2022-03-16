@@ -34,7 +34,7 @@
             "cors": {
                 "origin": "*",
                 "headers": null,
-                "methods": null
+                "methods": "*"
             }
         }
     }
