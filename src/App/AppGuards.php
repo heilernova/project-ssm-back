@@ -8,7 +8,7 @@
 
 namespace App;
 
-use App\Controllers\UsersModel;
+use App\Models\UsersModel;
 use HNova\Api\Response;
 
 class AppGuards
@@ -18,7 +18,6 @@ class AppGuards
         return function(){
             $header = apache_request_headers();
             $name_header = "ssm-access-token";
-            
             $ok = false;
             // Validamos que el token exista
             if (array_key_exists($name_header, $header)){
