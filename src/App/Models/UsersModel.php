@@ -2,7 +2,7 @@
 /**
  * Clase modelo para intercturar con la base de datos.
  */
-namespace App\Controllers;
+namespace App\Models;
 
 use App\AppBaseModel;
 use App\Templates\Db\UserDB;
