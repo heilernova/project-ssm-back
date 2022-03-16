@@ -23,6 +23,11 @@ class EpsModel extends AppBaseModel
     {
         return $this->database->execute("SELECT * FROM tb_eps")->fetchAllObjects(EpsDB::class);
     }
+    
+    public function getAllActive():array
+    {
+        return $this->database->execute("SELECT * FROM tb_eps WHERE `disable`=0")->fetchAllObjects(EpsDB::class);    
+    }
 
     /**
      * Retorna la información de la eps buscada.
@@ -45,6 +50,20 @@ class EpsModel extends AppBaseModel
             return $eps;
         }else{
             return null;
+        }
+    }
+
+    /**
+     * Actauliza los datos de la EPS
+     */
+    public function update(int $id, $data):bool
+    {
+        $result = $this->database->update($data, ["id=?", [$id]]);
+        if ($result->result){
+            $this->database->commit();
+            return true;
+        }else{
+            return false;
         }
     }
 
