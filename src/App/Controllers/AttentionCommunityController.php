@@ -9,6 +9,8 @@ namespace App\Controllers;
 use App\AppBaseController;
 use App\Models\PersonsModel;
 use App\Models\RequestsModel;
+use App\Templates\Db\RequestHistoryDB;
+use App\Templates\Db\RequestHistoryObservationsDB;
 use HNova\Api\Response;
 
 class AttentionCommunityController extends AppBaseController
@@ -28,15 +30,26 @@ class AttentionCommunityController extends AppBaseController
      */
     function getAll():Response
     {
-        $sql_request = "SELECT * FROM `vi_requests` WHERE `status`=1 ORDER BY `id` DESC";
+        $sql_request = "SELECT * FROM `vi_requests_history` WHERE `status`=1 ORDER BY `id` DESC";
         $sql_observactions = "SELECT t1.* FROM tb_requests_observations t1 INNER JOIN tb_requests t2 ON t2.id=t1.request AND t2.`status`=1 ORDER BY t1.id ASC";
-        $req = $this->database->query($sql_request)->fetch_all(MYSQLI_ASSOC);
-        $obs = $this->database->query($sql_observactions)->fetch_all(MYSQLI_ASSOC);
+        $req = $this->database->execute($sql_request)->fetchAllObjects(RequestHistoryDB::class);
+        $obs = $this->database->execute($sql_observactions)->fetchAllObjects(RequestHistoryObservationsDB::class);
 
-        $req = array_map(function($item)use($obs){
-            $item['observations'] = array_filter($obs,function($item)
+        $req = array_map(function(RequestHistoryDB $item) use($obs){
+
+            $id = $item->id;
+            // $item->observations = array_filter($obs,function(RequestHistoryObservationsDB $item) use ($id)
+            // {
+            //     return $item->valid($id);
+            // });
+
+            $item->observations = array_reduce($obs, function($carry, RequestHistoryObservationsDB $item) use ($id)
             {
-                return $item["request"] = $item["id"];
+                $carry = [];
+                if ($item->valid($id)){
+                    $carry[] = $item;
+                }
+                return $carry;
             });
             return $item;
         }, $req);

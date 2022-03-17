@@ -36,10 +36,22 @@ class RequestController extends AppBaseController
      */
     function addComment(int $id):Response
     {
-        $data = $this->getBody();
-        $data->request = $id;
+        $comment = $this->getBody();
+        $data = (object)[
+            "request" => $id,
+            "content" => $comment
+        ];
+
+        $ok =  $this->database->insert($data, 'tb_requests_observations');
+
+        if ($ok){
+            $this->database->commit();
+            $id = $ok->insertId;
+            $result = $this->database->execute("SELECT id, `date`, `content` FROM tb_requests_observations WHERE id=$id")->fetchAssoc();
+            return new Response($result);
+        }
         
-        return new Response("");
+        return new Response(null);
     }
 
     /**

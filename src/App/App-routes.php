@@ -10,7 +10,7 @@ use HNova\Api\Routes;
 
 Routes::post("auth", [AuthController::class, 'autenticate']);
 
-Routes::parents('', [AppGuards::authenticate()]);
+// Routes::parents('', [AppGuards::authenticate()]);
 
 // Rutas del las EPS
 Routes::get("eps", [EpsController::class, 'getAll']);
@@ -26,17 +26,23 @@ Routes::get("persons/{dni:string}", [PersonsController::class, 'get']);
 Routes::put("persons/{dni:string}", [PersonsController::class, 'get']);
 
 // Rutas Atención  a la comunidad
-Routes::get("attention-community", [AttentionCommunityController::class, 'getAll']);
-Routes::get("attention-community/full", [AttentionCommunityController::class, 'getFullAll']);
-Routes::get("attention-community/services", [AttentionCommunityController::class, 'getServices']);
-Routes::post("attention-community", [AttentionCommunityController::class, 'insertRequest']);
+Routes::parents("attention-community");
 
-// Registros
-Routes::get("attention-community/{id:int}", [AttentionCommunityController::class, 'get']);
-Routes::put("attention-community/{id:int}", [AttentionCommunityController::class, 'update']);
-Routes::delete("attention-community/{id:int}", [AttentionCommunityController::class, 'delete']);
+// Casso activos
+Routes::get("active-cases", [ActiveCasesController::class, 'get']);
 
-// Registros comentarios
-Routes::post("attention-community/{id:int}/comments", [RequestController::class, 'addComment']);
 
-Routes::get("attention-community/users/{dni:string}", [AttentionCommunityController::class, 'getPersonInfo']);
+// Routes::get("attention-community", [AttentionCommunityController::class, 'getAll']);
+// Routes::get("attention-community/full", [AttentionCommunityController::class, 'getFullAll']);
+// Routes::get("attention-community/services", [AttentionCommunityController::class, 'getServices']);
+// Routes::post("attention-community", [AttentionCommunityController::class, 'insertRequest']);
+
+// // Registros
+// Routes::get("attention-community/{id:int}", [AttentionCommunityController::class, 'get']);
+// Routes::put("attention-community/{id:int}", [AttentionCommunityController::class, 'update']);
+// Routes::delete("attention-community/{id:int}", [AttentionCommunityController::class, 'delete']);
+
+// // Registros comentarios
+// Routes::post("attention-community/{id:int}/comments", [RequestController::class, 'addComment']);
+
+// Routes::get("attention-community/users/{dni:string}", [AttentionCommunityController::class, 'getPersonInfo']);
