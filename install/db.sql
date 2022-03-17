@@ -26,6 +26,7 @@ DROP TABLE if EXISTS `tb_persons`;
 CREATE TABLE `tb_persons`
 (
     `dni` VARCHAR(15) PRIMARY KEY,
+    `dniType` VARCHAR(5) NOT NULL,
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `user` INT NOT NULL, -- usuario que lo registro
     `name` VARCHAR(20) NOT NULL,
@@ -56,7 +57,7 @@ CREATE TABLE `tb_requests`
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `status` BIT,
     `user` INT NOT NULL,
-    `dni` INT NOT NULL,
+    `dni` VARCHAR(15) NOT NULL,
     `service` INT,
     `accompaniment` VARCHAR(100) NOT NULL,
     `eps` INT NOT NULL,
