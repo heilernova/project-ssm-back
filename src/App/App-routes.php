@@ -28,8 +28,11 @@ Routes::put("persons/{dni:string}", [PersonsController::class, 'get']);
 // Rutas Atención  a la comunidad
 Routes::parents("attention-community");
 
-// Casso activos
-Routes::get("active-cases", [ActiveCasesController::class, 'get']);
+// Casosos
+Routes::get("cases/{id:int}" ,[CasesController::class]);
+Routes::post("cases", []);
+Routes::put("cases/{id:int}", []);
+Routes::delete("cases/{id:int}", []);
 
 
 // Routes::get("attention-community", [AttentionCommunityController::class, 'getAll']);

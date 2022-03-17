@@ -15,6 +15,10 @@ class RequestsModel extends AppBaseModel
         parent::__construct("tb_requests");
     }
 
+    public function get(int $id){
+        
+    }
+
     public function getPerson(string $dni)
     {
         $info = null;
@@ -31,6 +35,9 @@ class RequestsModel extends AppBaseModel
         return $info;
     }
 
+    /**
+     * Registra un nuevo
+     */
     public function insert($data):bool
     {
         return $this->database->insert($data)->result;
