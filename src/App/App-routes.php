@@ -32,7 +32,9 @@ Routes::parents("attention-community");
 Routes::get("cases/{id:int}" ,[CasesController::class]);
 Routes::post("cases", []);
 Routes::put("cases/{id:int}", []);
-Routes::delete("cases/{id:int}", []);
+Routes::delete("cases/{id:int}", [CasesController::class]);
+
+
 
 
 // Routes::get("attention-community", [AttentionCommunityController::class, 'getAll']);
