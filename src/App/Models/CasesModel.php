@@ -37,8 +37,9 @@ class CasesModel extends AppBaseModel
             $req = array_map(function(CaseDB $item) use($obs){
     
                 $id = $item->id;
+                // $item->observations = $obs;
                 $item->observations = array_reduce($obs, function($carry, CaseObservationDB $item) use ($id){
-                    $carry = [];
+                    static $carry = [];
                     if ($item->valid($id)){
                         $carry[] = $item;
                     }

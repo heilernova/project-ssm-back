@@ -1,6 +1,8 @@
 <?php
 namespace App\Templates\Db;
 
+use HNova\Api\ApiFunctions;
+
 class CaseDB
 {
     public int $id;
@@ -8,6 +10,7 @@ class CaseDB
     public string $dni = "";
     public string $name = "";
     public string|null $birthDate = null;
+    public int|null $years = null;
     public string $cellphone = "";
     public string|null $email = null;
     public string $address = "";
@@ -25,5 +28,8 @@ class CaseDB
         $this->name = strtolower($this->name);
         $this->email = strtolower($this->email);
         $this->address = strtolower($this->address);
+        if ($this->birthDate){
+            $this->years = ApiFunctions::date($this->birthDate)->getDiff()->y;
+        }
     }
 }

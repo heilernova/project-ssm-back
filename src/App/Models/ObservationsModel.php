@@ -4,9 +4,10 @@
  */
 namespace App\Models;
 
+use App\App;
 use App\AppBaseModel;
 
-class CommentsModel extends AppBaseModel
+class ObservationsModel extends AppBaseModel
 {
 
     public function __construct()
@@ -14,9 +15,14 @@ class CommentsModel extends AppBaseModel
         parent::__construct("tb_requests_observations");
     }
 
-    public function add($id, $data):object|null
+    public function insert($id, string $content):object|null
     {
-        $data->request = $id;
+        $data = [
+            "user" => App::getUser()->id,
+            "request" => $id,
+            "content" => $content,
+        ];
+
         $ok = $this->database->insert($data);
         if ($ok->result){
             $this->database->commit();

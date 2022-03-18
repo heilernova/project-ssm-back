@@ -4,7 +4,7 @@ namespace App\Templates\Db;
 class CaseObservationDB
 {
     public int $id;
-    private int $request  = 0;
+    public int $request  = 0;
     public string $date;
     public string $content;
     function __construct()

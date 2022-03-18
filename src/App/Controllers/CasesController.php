@@ -9,6 +9,7 @@ namespace App\Controllers;
 use App\App;
 use App\AppBaseController;
 use App\Models\CasesModel;
+use App\Models\ObservationsModel;
 use App\Models\RequestsModel;
 use App\Templates\Db\RequestHistoryDB;
 use App\Templates\Db\RequestHistoryObservationsDB;
@@ -19,10 +20,12 @@ class CasesController extends AppBaseController
 {
     private RequestsModel $requestModel;
     private CasesModel $_cases;
+    private ObservationsModel $_observations;
     function __construct()
     {
         $this->requestModel = new RequestsModel();
         $this->_cases = new CasesModel();
+        $this->_observations = new ObservationsModel();
         parent::__construct();
     }
 
@@ -51,5 +54,9 @@ class CasesController extends AppBaseController
      */
     function delete(int $id):Response{
         return new Response($this->_cases->delete($id) ? true : null);
+    }
+
+    function postObservations(int $id):Response{
+        return new Response($this->_observations->insert($id, $this->getBody()));
     }
 }
