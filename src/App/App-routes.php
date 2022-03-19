@@ -21,6 +21,11 @@ Routes::post("eps", [EpsController::class, 'insert']);
 Routes::patch("eps/{id:int}/disable", [EpsController::class, 'disable']);
 Routes::patch("eps/{id:int}/enable", [EpsController::class, 'enable']);
 
+// Perfil
+
+Routes::get('profile',[]);
+
+
 // Rutas personas
 Routes::get("persons/{dni:string}", [PersonsController::class, 'get']);
 Routes::put("persons/{dni:string}", [PersonsController::class, 'get']);
@@ -37,6 +42,12 @@ Routes::delete("cases/{id:int}", [CasesController::class]);
 
 Routes::post("cases/{id:int}/observations", [CasesController::class, 'postObservations']); // Rgistar un observación al caso
 
+// Servicios prestados
+Routes::get('services', [AttentionCommunityController::class, 'getServices']);
+Routes::post('services', [AttentionCommunityController::class, 'postService']);
+Routes::put('services/{id:int}', [AttentionCommunityController::class, 'putService']);
+
+Routes::get('users/{dni:string}', [AttentionCommunityController::class, 'getUsers']);
 
 
 // Routes::get("attention-community", [AttentionCommunityController::class, 'getAll']);

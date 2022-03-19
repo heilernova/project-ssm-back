@@ -20,7 +20,7 @@ class CasesModel extends AppBaseModel
     public function get(int $id = null){
         $where_id = $id ? "AND id=?" : "";
         $where_request = $id ? "AND request=?" : "";
-        $sql_request = "SELECT * FROM `vi_requests_history` WHERE `status`=1 $where_id ORDER BY `id` DESC";
+        $sql_request = "SELECT * FROM `vi_cases` WHERE `status`=1 $where_id ORDER BY `id` DESC";
         $sql_observactions = "SELECT t1.* FROM tb_requests_observations t1 INNER JOIN tb_requests t2 ON t2.id=t1.request AND t2.`status`=1 $where_request ORDER BY t1.id ASC";
         
         if ($id){
