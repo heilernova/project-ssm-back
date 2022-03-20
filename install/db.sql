@@ -139,7 +139,7 @@ t2.`address`,
 t3.`name` AS `eps`,
 t2.`regime`,
 t2.`sisben`,
-t4.``description`` AS `service`,
+t4.`description` AS `service`,
 t1.`accompaniment`,
 t1.`status`
 FROM `tb_requests` t1
