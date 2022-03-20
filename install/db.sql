@@ -41,7 +41,7 @@ CREATE TABLE `tb_persons`
     `lastName` VARCHAR(20) NOT NULL,
     `cellphone` VARCHAR(20) NOT NULL,
     `email` VARCHAR(150),
-    `sex` BIT,
+    `sex` CHAR(1),
     `birthDate` DATE,
     `address` VARCHAR(50),
     `eps` INT NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE `tb_request_observations`
     PRIMARY KEY (`id`)
 );
 
-
+-- Vista de los requerimiento.
 DROP VIEW if EXISTS `vi_requests`;
 CREATE VIEW `vi_requests` AS
 SELECT 
@@ -124,26 +124,27 @@ CONCAT(`t2`.`name`, ' ', `t2`.`lastName`) AS `name`,
 FROM `tb_requests` `t1` 
 INNER JOIN `tb_persons` `t2` ON `t2`.`dni` = `t1`.`dni`;
 
-DROP VIEW if EXISTS vi_cases;
-CREATE VIEW vi_cases AS
+-- Vista de los casos activos.
+DROP VIEW if EXISTS `vi_cases`;
+CREATE VIEW `vi_cases` AS
 SELECT 
-t1.id,
-t1.date,
-t1.dni,
-CONCAT(t2.name, t2.lastName) AS `name`,
-t2.birthDate,
-t2.cellphone,
-t2.email,
-t2.address,
-t3.name AS `eps`,
-t2.regime,
-t2.sisben,
-t4.description AS `service`,
-t1.accompaniment,
+t1.`id`,
+t1.`date`,
+t1.`dni`,
+CONCAT(t2.`name`, t2.`lastName`) AS `name`,
+t2.`birthDate`,
+t2.`cellphone`,
+t2.`email`,
+t2.`address`,
+t3.`name` AS `eps`,
+t2.`regime`,
+t2.`sisben`,
+t4.``description`` AS `service`,
+t1.`accompaniment`,
 t1.`status`
-FROM tb_requests t1
-INNER JOIN tb_persons t2 ON t2.dni = t1.dni
-INNER JOIN tb_eps t3 ON t2.eps = t2.eps
-INNER JOIN tb_requests_services t4 ON t4.id = t1.service;
+FROM `tb_requests` t1
+INNER JOIN `tb_persons` t2 ON t2.`dni` = t1.`dni`
+INNER JOIN `tb_eps` t3 ON t2.`eps` = t2.`eps`
+INNER JOIN `tb_requests_services` t4 ON t4.`id` = t1.`service`;
 
 SET FOREIGN_KEY_CHECKS = 1; -- Deshabilitamos las llaves foraneas
