@@ -36,12 +36,18 @@ class PersonsModel extends AppBaseModel
 
     /**
      * Registar en la base de datos los datos de un persona
+     * @return PersonDB|null returna un objeto con la información de la persona registrada en caso
      */
-    public function insert($data):bool
+    public function insert($data):?PersonDB
     {
-        $ok  = $this->database->insert($data)->result;
-        if ($ok) $this->database->commit();
-        return $ok;
+        $ok  = $this->database->insert($data);
+        if ($ok->result) {
+            $this->database->commit();
+            $dni = $data->dni;
+            return $this->database->execute("SELECT * FROM tb_persons WHERE dni=$dni")->fecthObject(PersonDB::class);
+        }else{
+            return null;
+        }
     }
 
     /**
@@ -54,8 +60,9 @@ class PersonsModel extends AppBaseModel
 
     /**
      * Actualiza la información de una persona
+     * @return bool true si la actualización se genero correctamente.
      */
-    public function update(string $dni,array|object $data):bool
+    public function update(string $dni, array|object $data):bool
     {
         return $this->database->update($data, ['dni=?', [$dni]])->result;
     }

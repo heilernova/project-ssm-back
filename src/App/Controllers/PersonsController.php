@@ -12,16 +12,21 @@ use HNova\Api\Response;
 
 class PersonsController extends AppBaseController
 {
-    private PersonsModel $personModel;
+    private PersonsModel $_personModel;
     function __construct()
     {
-        $this->personModel = new PersonsModel();
+        $this->_personModel = new PersonsModel();
     }
 
     
     function get(string $dni):Response
     {
-        $result = $this->personModel->get($dni);
+        $result = $this->_personModel->get($dni);
         return new Response($result, $result ? 200 : 404);
+    }
+
+    function post():Response{
+        $res = $this->_personModel->insert($this->getBody());
+        return new Response($res);
     }
 }

@@ -27,8 +27,9 @@ Routes::get('profile',[]);
 
 
 // Rutas personas
-Routes::get("persons/{dni:string}", [PersonsController::class, 'get']);
-Routes::put("persons/{dni:string}", [PersonsController::class, 'get']);
+Routes::post("persons", [PersonsController::class]);
+Routes::get("persons/{dni:string}", [PersonsController::class]);
+Routes::put("persons/{dni:string}", [PersonsController::class]);
 
 // Rutas Atención  a la comunidad
 Routes::parents("attention-community", [AppGuards::authenticate()]);

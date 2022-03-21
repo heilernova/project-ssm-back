@@ -47,7 +47,8 @@ class AttentionCommunityController extends AppBaseController
     }
 
     function getUsers(string $dni):Response{
-        $person = $this->database->execute("SELECT * FROM tb_persons WHERE dni=?", [$dni])->fecthObject(PersonRequestDB::class);
+        $sql = "SELECT t1.*, t2.name as `epsName` FROM tb_persons t1 INNER JOIN tb_eps t2 ON t2.id = t1.eps WHERE dni=?";
+        $person = $this->database->execute($sql, [$dni])->fecthObject(PersonRequestDB::class);
 
         if ($person){
             $res = $this->database->query("SELECT * FROM tb_requests WHERE dni=? ORDER BY id DESC LIMIT 1", [$dni])->fetch_assoc();

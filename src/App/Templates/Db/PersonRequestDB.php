@@ -15,7 +15,8 @@ class PersonRequestDB{
     public string|null $birthDate = null;
     public int|null $years = null;
     public string $address = "";
-    public string $eps = "";
+    public int $eps = 0;
+    public string $epsName = "";
     public int $sisben = 0;
     public int $regime = 0;
 

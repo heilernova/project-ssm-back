@@ -38,13 +38,15 @@ class CasesModel extends AppBaseModel
     
                 $id = $item->id;
                 // $item->observations = $obs;
-                $item->observations = array_reduce($obs, function($carry, CaseObservationDB $item) use ($id){
+                $list_observations = array_reduce($obs, function($carry, CaseObservationDB $item) use ($id){
                     static $carry = [];
                     if ($item->valid($id)){
                         $carry[] = $item;
                     }
                     return $carry;
                 });
+
+                if (is_array($list_observations)) $item->observations = $list_observations;
     
                 return $item;
             }, $req);
@@ -61,7 +63,7 @@ class CasesModel extends AppBaseModel
     {
         $id_user = App::getUser()->id;
         $data->user = $id_user;
-
+        $data->status = true;
         $res = $this->database->insert($data);
         if ($res->result){
             $this->commit();
