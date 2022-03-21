@@ -98,8 +98,8 @@ CREATE TABLE `tb_requests`
 
 
 -- Historial de las observaciones acerca de las solicitudes.
-DROP TABLE if EXISTS `tb_request_observations`;
-CREATE TABLE `tb_request_observations`
+DROP TABLE if EXISTS `tb_requests_observations`;
+CREATE TABLE `tb_requests_observations`
 (
     `id` INT AUTO_INCREMENT,
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
@@ -131,7 +131,7 @@ SELECT
 t1.`id`,
 t1.`date`,
 t1.`dni`,
-CONCAT(t2.`name`, t2.`lastName`) AS `name`,
+CONCAT(t2.`name`, ' ', t2.`lastName`) AS `name`,
 t2.`birthDate`,
 t2.`cellphone`,
 t2.`email`,
