@@ -59,4 +59,10 @@ class CasesController extends AppBaseController
     function postObservations(int $id):Response{
         return new Response($this->_observations->insert($id, $this->getBody()));
     }
+    function putObservations(int $id):Response{
+        return new Response($this->_observations->update($id, $this->getBody()));
+    }
+    function deleteObservations(int $id):Response{
+        return new Response($this->_observations->delete($id));
+    }
 }

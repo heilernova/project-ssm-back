@@ -8,6 +8,7 @@ namespace App\Controllers;
 
 use App\AppBaseController;
 use App\Models\PersonsModel;
+use HNova\Api\Http\ResponseApi;
 use HNova\Api\Response;
 
 class PersonsController extends AppBaseController
@@ -16,6 +17,7 @@ class PersonsController extends AppBaseController
     function __construct()
     {
         $this->_personModel = new PersonsModel();
+        parent::__construct();
     }
 
     
@@ -31,7 +33,27 @@ class PersonsController extends AppBaseController
     }
 
     function put(string $dni):Response{
-        $res = $this->_personModel->update($dni, $this->getBody());
+        $ok = true;
+        $data = $this->getBody();
+        $res = new ResponseApi();
+        
+        if (isset($data->dni)){
+            $sql = "SELECT * FROM tb_persons where dni=? AND dni<>?";
+            $ok = $this->database->query($sql, [$data->dni, $dni])->fetch_assoc() ? true : false;
+        }
+
+        if ($ok){
+            $res->message->content[] = "El número de documento ya esta asignado a otra persona";
+        }else{
+
+            $res->status = $this->_personModel->update($dni, $data);
+            if ($res->status){
+                $this->_personModel->commit();
+                $res->status =  true;
+            }
+            $res->message->content[] = "No se actualizar al información";
+        }
+
         return new Response($res);
     }
 }

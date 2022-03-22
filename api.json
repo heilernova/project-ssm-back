@@ -33,7 +33,7 @@
             "database": "ssm",
             "cors": {
                 "origin": "*",
-                "headers": null,
+                "headers": "*",
                 "methods": "*"
             }
         }

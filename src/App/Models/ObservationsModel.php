@@ -31,4 +31,22 @@ class ObservationsModel extends AppBaseModel
         }
         return null;
     }
+
+    public function update($id, string $content):bool{
+        $ok = $this->database->update(['content'=>$content], ["id=?", [$id]])->result;
+        if ($ok){
+            $this->commit();
+            return true;
+        }
+        return false;
+    }
+
+    public function delete($id):bool{
+        $ok = $this->database->delete(["id=?", [$id]])->result;
+        if ($ok){
+            $this->commit();
+            return true;
+        }
+        return false;
+    }
 }
