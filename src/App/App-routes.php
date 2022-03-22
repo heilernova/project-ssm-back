@@ -33,7 +33,7 @@ Routes::put("persons/{dni:string}", [PersonsController::class]);
 
 // Rutas Atención  a la comunidad
 Routes::parents("attention-community", [AppGuards::authenticate()]);
-// Routes::parents("attention-community");
+Routes::parents("attention-community");
 
 // Casosos
 Routes::get("cases/{id:int}" ,[CasesController::class]);

@@ -29,4 +29,9 @@ class PersonsController extends AppBaseController
         $res = $this->_personModel->insert($this->getBody());
         return new Response($res);
     }
+
+    function put(string $dni):Response{
+        $res = $this->_personModel->update($dni, $this->getBody());
+        return new Response($res);
+    }
 }
