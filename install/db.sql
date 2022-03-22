@@ -85,7 +85,7 @@ CREATE TABLE `tb_requests`
     `displaced` BIT, -- Desplazado
     `demobilized` BIT, -- desmovilizado
     `reinserted` BIT, -- Reincertado
-    `palenRaizan` BIT,
+    `palenRaizal` BIT,
     `roomGintano` BIT,
     `nnaNunaccompaniedAdult` BIT,
     INDEX `index_user` (`user`),
@@ -131,7 +131,9 @@ SELECT
 t1.`id`,
 t1.`date`,
 t1.`dni`,
+t2.`dniType`,
 CONCAT(t2.`name`, ' ', t2.`lastName`) AS `name`,
+t2.`sex`,
 t2.`birthDate`,
 t2.`cellphone`,
 t2.`email`,

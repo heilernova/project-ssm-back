@@ -10,10 +10,10 @@ class PersonRequestDB{
     public string $name = "";
     public string $lastName = "";
     public string $cellphone = "";
-    public string $email = "";
-    public string $sex = "";
+    public string|null $email = null;
+    public string|null $sex = null;
     public string|null $birthDate = null;
-    public int|null $years = null;
+    public int|null $age = null;
     public string $address = "";
     public int $eps = 0;
     public string $epsName = "";
@@ -23,7 +23,7 @@ class PersonRequestDB{
     public function __construct()
     {
         if ($this->birthDate){
-            $this->years = ApiFunctions::date($this->birthDate)->getDiff()->y;
+            $this->age = ApiFunctions::date($this->birthDate)->getDiff()->y;
         }
         if ($this->email){
             $this->email = strtolower($this->email);

@@ -11,7 +11,7 @@ class PersonDB
     public string $lastName = "";
     public bool|null $sex = null;
     public string|null $birthDate = null;
-    public int|null $years = null;
+    public int|null $age = null;
     public string $cellphone = "";
     public string $address = "";
     public int $eps = 0;
@@ -24,7 +24,7 @@ class PersonDB
         $this->lastName = strtolower($this->lastName);
 
         if ($this->birthDate){
-            $this->years = ApiFunctions::date($this->birthDate)->getDiff()->y;
+            $this->age = ApiFunctions::date($this->birthDate)->getDiff()->y;
         }
     }
 }

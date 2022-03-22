@@ -9,8 +9,9 @@ class CaseDB
     public string $date;
     public string $dni = "";
     public string $name = "";
+    public string|null $sex = null;
     public string|null $birthDate = null;
-    public int|null $years = null;
+    public int|null $age = null;
     public string $cellphone = "";
     public string|null $email = null;
     public string $address = "";
@@ -29,7 +30,7 @@ class CaseDB
         $this->email = strtolower($this->email);
         $this->address = strtolower($this->address);
         if ($this->birthDate){
-            $this->years = ApiFunctions::date($this->birthDate)->getDiff()->y;
+            $this->age = ApiFunctions::date($this->birthDate)->getDiff()->y;
         }
     }
 }
