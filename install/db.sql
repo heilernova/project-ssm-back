@@ -47,6 +47,7 @@ CREATE TABLE `tb_persons`
     `eps` INT NOT NULL,
     `sisben` BIT,
     `regime` BIT,
+    `population` CHAR,
     INDEX `index_eps` (`eps`),
     CONSTRAINT `fk_persons_eps` FOREIGN KEY(`eps`) REFERENCES `tb_eps`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     PRIMARY KEY (`dni`)
@@ -111,6 +112,35 @@ CREATE TABLE `tb_requests_observations`
     CONSTRAINT `fk_bservations_req`  FOREIGN KEY(`request`) REFERENCES `tb_requests`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `fk_observations_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     PRIMARY KEY (`id`)
+);
+
+-- Encuestas
+DROP TABLE if EXISTS `tb_surveys_eps`;
+CREATE TABLE `tb_surveys_eps`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL,
+    `dni` VARCHAR(16) NOT NULL,
+    `eps` INT NOT NULL,
+    `ask01` VARCHAR(50),
+    `ask02` TINYINT,
+    `ask03` BIT NOT NULL,
+    `ask04` TINYINT,
+    `ask05` TINYINT,
+    `ask06` TINYINT,
+    `ask07` TINYINT,
+    `ask08` TINYINT,
+    `ask09` TINYINT,
+    `ask10` TINYINT,
+    `ask11` TINYINT,
+    `ask12` TINYINT,
+    INDEX `index_user` (`user`),
+    INDEX `index_dni` (`dni`),
+    INDEX `index_eps` (`eps`),
+    CONSTRAINT `fk_serveys_eps_eps` FOREIGN KEY(`eps`) REFERENCES `tb_eps`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_surveys_eps_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_surveys_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- Vista de los requerimiento.

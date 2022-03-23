@@ -9,9 +9,6 @@ use HNova\Api\Response;
 use HNova\Api\Routes;
 
 // Rutas Atención  a la comunidad
-Routes::parents("persons", [AppGuards::authenticate()]);
-
-// Rutas personas
-Routes::post("", [PersonsController::class]);
-Routes::get("{dni:string}", [PersonsController::class]);
-Routes::put("{dni:string}", [PersonsController::class]);
+Routes::post("persons", [PersonsController::class]);
+Routes::get("persons/{dni:string}", [PersonsController::class]);
+Routes::put("persons{dni:string}", [PersonsController::class], [AppGuards::authenticate()]);

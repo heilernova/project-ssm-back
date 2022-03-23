@@ -11,3 +11,4 @@ use HNova\Api\Routes;
 Routes::parents("public");
 
 Routes::get('persons/{dni:strin}',[]);
+Routes::post('persons',[PersonsController::class]);
