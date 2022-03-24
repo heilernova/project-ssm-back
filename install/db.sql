@@ -30,6 +30,30 @@ CREATE TABLE `tb_eps`
     `disable` BIT
 );
 
+INSERT INTO `tb_eps` VALUES(1, 'NUEVA EPS', 0);
+
+-- IPS
+DROP TABLE if EXISTS `tb_ips`;
+CREATE TABLE `tb_ips`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(50) not NULL,
+    `disable` BIT
+);
+
+INSERT INTO `tb_ips`
+VALUES
+(1, 'ESE I NIVEL', 0),
+(1, 'HOSPITAL SAN JOSÉ DEL GUAVIARE', 0),
+(3, 'ODONTOMEDIC IPS', 0),
+(4, 'NUEVA SALUD INTEGRAL IPS', 0),
+(5, 'CENTRO MEDICO GUAVIARE', 0),
+(6, 'IPS SESMAS', 0),
+(7, 'ANGIAGRAFIAS DE COLOMBIA', 0),
+(8, 'MI IPS LLANOS', 0),
+(9, 'VISIÓN ORAL DIGITAL', 0),
+(10, 'GAMMAS IPS', 0);
+
 -- Datos de la personas
 DROP TABLE if EXISTS `tb_persons`;
 CREATE TABLE `tb_persons`
@@ -97,7 +121,6 @@ CREATE TABLE `tb_requests`
     CONSTRAINT `fk_req_eps` FOREIGN KEY (`eps`) REFERENCES `tb_eps`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-
 -- Historial de las observaciones acerca de las solicitudes.
 DROP TABLE if EXISTS `tb_requests_observations`;
 CREATE TABLE `tb_requests_observations`
@@ -114,7 +137,7 @@ CREATE TABLE `tb_requests_observations`
     PRIMARY KEY (`id`)
 );
 
--- Encuestas
+-- Encuestas  de EPS
 DROP TABLE if EXISTS `tb_surveys_eps`;
 CREATE TABLE `tb_surveys_eps`
 (
@@ -135,6 +158,8 @@ CREATE TABLE `tb_surveys_eps`
     `ask10` TINYINT,
     `ask11` TINYINT,
     `ask12` TINYINT,
+    `ask13` TINYINT,
+    `ask14` TINYINT,
     INDEX `index_user` (`user`),
     INDEX `index_dni` (`dni`),
     INDEX `index_eps` (`eps`),
@@ -142,6 +167,17 @@ CREATE TABLE `tb_surveys_eps`
     CONSTRAINT `fk_surveys_eps_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT `fk_surveys_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+-- DROP TABLE IF EXISTS `tb_surveys_ips_evaluation`;
+-- CREATE TABLE `tb_surveys_ips_evaluation`
+-- (
+--     `id` INT PRIMARY KEY AUTO_INCREMENT,
+--     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+--     `user` INT NOT NULL,
+--     `dni` VARCHAR(16) NOT NULL,
+--     `eps` INT NOT NULL,
+-- );
+
 
 -- Vista de los requerimiento.
 DROP VIEW if EXISTS `vi_requests`;

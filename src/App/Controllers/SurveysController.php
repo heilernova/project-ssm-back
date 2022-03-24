@@ -22,4 +22,8 @@ class SurveysController extends AppBaseController
         $res = $this->database->execute("SELECT id, CONCAT(`name`, ' ', `lastName`) FROM tb_users")->fetchAll();
         return $res;
     }
+
+    function ipsGet(){
+        return $this->database->query("SELECT * FROM tb_ips")->fetch_all(MYSQLI_ASSOC);
+    }
 }
