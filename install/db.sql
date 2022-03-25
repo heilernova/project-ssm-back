@@ -44,7 +44,7 @@ CREATE TABLE `tb_ips`
 INSERT INTO `tb_ips`
 VALUES
 (1, 'ESE I NIVEL', 0),
-(1, 'HOSPITAL SAN JOSÉ DEL GUAVIARE', 0),
+(2, 'HOSPITAL SAN JOSÉ DEL GUAVIARE', 0),
 (3, 'ODONTOMEDIC IPS', 0),
 (4, 'NUEVA SALUD INTEGRAL IPS', 0),
 (5, 'CENTRO MEDICO GUAVIARE', 0),
@@ -168,16 +168,140 @@ CREATE TABLE `tb_surveys_eps`
     CONSTRAINT `fk_surveys_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- DROP TABLE IF EXISTS `tb_surveys_ips_evaluation`;
--- CREATE TABLE `tb_surveys_ips_evaluation`
--- (
---     `id` INT PRIMARY KEY AUTO_INCREMENT,
---     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
---     `user` INT NOT NULL,
---     `dni` VARCHAR(16) NOT NULL,
---     `eps` INT NOT NULL,
--- );
+DROP TABLE IF EXISTS `tb_surveys_ips_evaluation`;
+CREATE TABLE `tb_surveys_ips_evaluation`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL,
+    `dni` VARCHAR(16) NOT NULL,
+    `ips` VARCHAR(50) NOT NULL,
+    `ask01` TINYINT NOT NULL,
+    `ask02` TINYINT NOT NULL,
+    `ask03` TINYINT NOT NULL,
+    `ask04` TINYINT NOT NULL,
+    `ask05` TINYINT NOT NULL,
+    `ask06` TINYINT NOT NULL,
+    `ask07` TINYINT NOT NULL,
+    `ask08` TINYINT NOT NULL,
+    `ask09` TINYINT NOT NULL,
+    INDEX `index_user` (`user`),
+    INDEX `index_dni` (`dni`),
+    CONSTRAINT `fk_surveys_ips_evaluation_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_surveys_ips_evaluation_dni` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
 
+DROP TABLE if EXISTS `tb_surveys_ips_hospitalization`;
+CREATE TABLE `tb_surveys_ips_hospitalization`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL,
+    `dni` VARCHAR(16) NOT NULL,
+    `ips` VARCHAR(50) NOT NULL,
+    `ask01` TINYINT,
+    `ask02` TINYINT,
+    `ask03` TINYINT,
+    `ask04` TINYINT,
+    `ask05` VARCHAR(50),
+    `ask06` TINYINT,
+    `ask07` TINYINT,
+    `ask08` TINYINT,
+    `ask09` TINYINT,
+    `ask10` TINYINT,
+    INDEX `index_user` (`user`),
+    INDEX `index_dni` (`dni`),
+    CONSTRAINT `fk_surveys_ips_hospitalization_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_surveys_ips_hospitalization_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+
+DROP TABLE if EXISTS `tb_surveys_ips_laboratorys`;
+CREATE TABLE `tb_surveys_ips_laboratorys`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL,
+    `dni` VARCHAR(16) NOT NULL,
+    `ips` VARCHAR(50) NOT NULL,
+    `ask01` TINYINT,
+    `ask02` TINYINT,
+    `ask03` TINYINT,
+    `ask04` TINYINT,
+    `ask05` TINYINT,
+    `ask06` TINYINT,
+    `ask07` TINYINT,
+    `ask08` TINYINT,
+    `ask09` TINYINT,
+    INDEX `index_user` (`user`),
+    INDEX `index_dni` (`dni`),
+    CONSTRAINT `fk_surveys_ips_laboratorys_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_surveys_ips_laboratorys_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+DROP TABLE if EXISTS `tb_surveys_ips_pharmacy`;
+CREATE TABLE `tb_surveys_ips_pharmacy`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL,
+    `dni` VARCHAR(16) NOT NULL,
+    `ips` VARCHAR(50) NOT NULL,
+    `ask01` TINYINT,
+    `ask02` TINYINT,
+    `ask03` TINYINT,
+    `ask04` TINYINT,
+    `ask05` TINYINT,
+    `ask06` TINYINT,
+    `ask07` TINYINT,
+    INDEX `index_user` (`user`),
+    INDEX `index_dni` (`dni`),
+    CONSTRAINT `fk_surveys_ips_pharmacy_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_surveys_ips_pharmacy_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+DROP TABLE if EXISTS `tb_surveys_ips_medicine`;
+CREATE TABLE `tb_surveys_ips_medicine`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL,
+    `dni` VARCHAR(16) NOT NULL,
+    `ips` VARCHAR(50) NOT NULL,
+    `ask01` TINYINT,
+    `ask02` TINYINT,
+    `ask03` TINYINT,
+    `ask04` TINYINT,
+    `ask05` TINYINT,
+    `ask06` TINYINT,
+    `ask07` TINYINT,
+    `ask08` TINYINT,
+    `ask09` TINYINT,
+    INDEX `index_user` (`user`),
+    INDEX `index_dni` (`dni`),
+    CONSTRAINT `fk_surveys_ips_medicine_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_surveys_ips_medicine_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
+DROP TABLE if EXISTS `tb_surveys_ips_odontology`;
+CREATE TABLE `tb_surveys_ips_odontology`
+(
+    `id` INT PRIMARY KEY AUTO_INCREMENT,
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    `user` INT NOT NULL,
+    `dni` VARCHAR(16) NOT NULL,
+    `ips` VARCHAR(50) NOT NULL,
+    `ask01` TINYINT,
+    `ask02` TINYINT,
+    `ask03` TINYINT,
+    `ask04` TINYINT,
+    `ask05` TINYINT,
+    `ask06` TINYINT,
+    `ask07` TINYINT,
+    `ask08` TINYINT,
+    `ask09` TINYINT,
+    INDEX `index_user` (`user`),
+    INDEX `index_dni` (`dni`),
+    CONSTRAINT `fk_surveys_ips_odontology_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_surveys_ips_odontology_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
+);
 
 -- Vista de los requerimiento.
 DROP VIEW if EXISTS `vi_requests`;
