@@ -12,4 +12,4 @@ use HNova\Api\Routes;
 Routes::parentsClear();
 Routes::post("persons", [PersonsController::class]);
 Routes::get("persons/{dni:string}", [PersonsController::class]);
-Routes::put("persons{dni:string}", [PersonsController::class], [AppGuards::authenticate()]);
+Routes::put("persons/{dni:string}", [PersonsController::class]);

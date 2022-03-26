@@ -5,7 +5,7 @@ use HNova\Api\ApiFunctions;
 
 class PersonDB
 {
-    public int $dni;
+    public string $dni = '';
     public string $date;
     public string $name = "";
     public string $lastName = "";
@@ -14,12 +14,19 @@ class PersonDB
     public int|null $age = null;
     public string $cellphone = "";
     public string $address = "";
-    public int $eps = 0;
-    public int $sisben = 0;
-    public int $regime = 0;
+    public int|null $eps = null;
+    public int|null $sisben = null;
+    public int|null $regime = null;
 
-    public function __construct()
+    public function __construct($data = null)
     {
+        if ($data){
+            foreach ($data as $key => $value){
+                if (isset($this->$key)){
+                    $this->$key = $value;
+                }
+            }
+        }
         $this->name = strtolower($this->name);
         $this->lastName = strtolower($this->lastName);
 

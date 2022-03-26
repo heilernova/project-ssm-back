@@ -8,6 +8,7 @@ namespace App\Controllers;
 
 use App\AppBaseController;
 use App\Models\PersonsModel;
+use App\Templates\Db\PersonDB;
 use HNova\Api\Http\ResponseApi;
 use HNova\Api\Response;
 
@@ -28,11 +29,22 @@ class PersonsController extends AppBaseController
     }
 
     function post():Response{
-        $res = $this->_personModel->insert($this->getBody());
+        $res = new ResponseApi();
+        $result = $this->_personModel->insert($this->getBody());
+
+        if ($result){
+
+        }else{
+            $code = mysqli_errno($this->_personModel->database->getConnection());
+            if ($code == 1062){
+                $res->message->content[] = "El número de documento ya esta registrado";
+            }
+        }
+
         return new Response($res);
     }
 
-    function put(string $dni):Response{
+    function put(string $dni){
         $ok = true;
         $data = $this->getBody();
         $res = new ResponseApi();
@@ -49,11 +61,13 @@ class PersonsController extends AppBaseController
             $res->status = $this->_personModel->update($dni, $data);
             if ($res->status){
                 $this->_personModel->commit();
+                $res->data = new PersonDB($data);
                 $res->status =  true;
+            }else{
+                $res->message->content[] = "No se actualizar al información";
             }
-            $res->message->content[] = "No se actualizar al información";
         }
 
-        return new Response($res);
+        return $res;
     }
 }

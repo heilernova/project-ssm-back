@@ -19,7 +19,23 @@ class SurveysController extends AppBaseController
     }
     function post()
     {
-        $res = $this->database->execute("SELECT id, CONCAT(`name`, ' ', `lastName`) FROM tb_users")->fetchAll();
+        $data = $this->getBody();
+        $db = $data->database;
+        $params = $data->params;
+        $res = new ResponseApi();
+
+
+        $result = $this->database->insert($params, $db)->result;
+        
+        if ($result){
+            $this->database->commit();
+            $res->status = true;
+            $res->data = true;
+        }else{
+            $res->message->content[] = "No se pudo guardar los datos.";
+            $res->message->content[] = "Por favir intentelo nuevamente";
+        }
+
         return $res;
     }
 
