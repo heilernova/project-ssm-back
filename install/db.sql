@@ -91,8 +91,8 @@ CREATE TABLE `tb_persons`
 -- -------------------------------------------------------------------------------------
 
 -- Lista de atenciones requeridas.
-DROP TABLE if EXISTS `tb_sac_required_attentions`;
-CREATE TABLE `tb_sac_required_attentions`
+DROP TABLE if EXISTS `tb_sac_cases_required_attentions`;
+CREATE TABLE `tb_sac_cases_required_attentions`
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `attention` VARCHAR(20) NOT NULL
@@ -103,11 +103,13 @@ DROP TABLE if EXISTS `tb_sac_cases`;
 CREATE TABLE `tb_sac_cases`
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `date` DATETIME NOT NULL CURRENT_TIMESTAMP(),
+    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `status` BIT NOT NULL DEFAULT b'1',
     `user` INT NOT NULL,
+    `dni` INT NOT NULL,
     `eps` INT NOT NULL,
-    `attention` INT NOT NULL,
+    `requiredAttention` INT NOT NULL,
+    `note` VARCHAR(400),
     `sisben` BIT,
     `regime` BIT,
     `olderAdult` BIT, -- Adulto mayor
@@ -124,73 +126,52 @@ CREATE TABLE `tb_sac_cases`
     `roomGintano` BIT,
     `nnaNunaccompaniedAdult` BIT,
     INDEX `index_user` (`user`),
-    INDEX `index_attention` (`attention`),
+    INDEX `index_attention` (`requiredAttention`),
     INDEX `index_eps` (`eps`),
     CONSTRAINT `fk_sac_cases_users` FOREIGN KEY (`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT `fk_sac_cases_required_attentions` FOREIGN KEY (`attention`) REFERENCES `tb_sac_required_attentions`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT `fk_sac_cases_required_attentions` FOREIGN KEY (`requiredAttention`) REFERENCES `tb_sac_cases_required_attentions`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT `fk_sac_cases_eps` FOREIGN KEY (`eps`) REFERENCES `tb_eps`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-
-
--- Lista de servicios
-DROP TABLE if EXISTS `tb_requests_services`;
-CREATE TABLE `tb_requests_services`
-(
-    `id` INT PRIMARY KEY AUTO_INCREMENT,
-    `description` VARCHAR(50) NOT NULL
-);
-
--- Registro de solicitudes
-DROP TABLE if EXISTS `tb_requests`;
-CREATE TABLE `tb_requests`
+-- Registro de comentarios.
+DROP TABLE if EXISTS `tb_sac_cases_comments`;
+CREATE TABLE `tb_sac_cases_comments`
 (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    `status` BIT,
     `user` INT NOT NULL,
-    `dni` VARCHAR(15) NOT NULL,
-    `service` INT,
-    `accompaniment` VARCHAR(100) NOT NULL,
-    `eps` INT NOT NULL,
-    `sisben` BIT,
-    `regime` BIT,
-    `olderAdult` BIT, -- Adulto mayor
-    `disabled` BIT, -- Discapacitado.
-    `pregnant` BIT, -- Mujer en gestación
-    `womenHeadHousehold` BIT, -- Mujer cabeza de hogar
-    `afrodescendent` BIT,
-    `lgtbi` BIT,
-    `victim` BIT, -- Victima
-    `displaced` BIT, -- Desplazado
-    `demobilized` BIT, -- desmovilizado
-    `reinserted` BIT, -- Reincertado
-    `palenRaizal` BIT,
-    `roomGintano` BIT,
-    `nnaNunaccompaniedAdult` BIT,
-    INDEX `index_user` (`user`),
-    INDEX `index_service` (`service`),
-    INDEX `index_eps` (`eps`),
-    CONSTRAINT `fk_req_users` FOREIGN KEY (`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT `fk_req_service` FOREIGN KEY (`service`) REFERENCES `tb_requests_services`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT `fk_req_eps` FOREIGN KEY (`eps`) REFERENCES `tb_eps`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
-);
-
--- Historial de las observaciones acerca de las solicitudes.
-DROP TABLE if EXISTS `tb_requests_observations`;
-CREATE TABLE `tb_requests_observations`
-(
-    `id` INT AUTO_INCREMENT,
-    `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-    `user` INT NOT NULL,
-    `request` INT NOT NULL,
+    `case` INT NOT NULL,
     `content` VARCHAR(200) NOT NULL,
-    INDEX `index_request` (`request`),
+    INDEX `index_case` (`case`),
     INDEX `index_user` (`user`),
-    CONSTRAINT `fk_bservations_req`  FOREIGN KEY(`request`) REFERENCES `tb_requests`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT `fk_observations_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-    PRIMARY KEY (`id`)
+    CONSTRAINT `fk_tb_sac_cases_comments_cases`  FOREIGN KEY(`case`) REFERENCES `tb_sac_cases`(`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `fk_tb_sac_cases_comments_users` FOREIGN KEY(`user`) REFERENCES `tb_users`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
+
+-- -- Vista de los casos.
+DROP VIEW if EXISTS `vi_cases`;
+CREATE VIEW `vi_cases` AS
+SELECT
+t1.`id`,
+t1.`date`,
+t1.`dni`,
+t2.`dniType`,
+CONCAT(t2.`name`, ' ', t2.`lastName`) AS `name`,
+t2.`sex`,
+t2.`birthDate`,
+t2.`cellphone`,
+t2.`email`,
+t2.`address`,
+t2.`regime`,
+t2.`sisben`,
+t3.`name` AS `eps`,
+t4.`attention` AS `requiredAttention`,
+t1.`note`,
+t1.`status`
+FROM `tb_sac_cases` t1
+INNER JOIN `tb_persons` t2 ON t2.`dni` = t1.`dni`
+INNER JOIN `tb_eps` t3 ON t3.`id` = t1.`eps`
+INNER JOIN `tb_sac_cases_required_attentions` t4 ON t4.id = t1.`requiredAttention`;
 
 -- ----------------------------------------------------
 -- ------------ ENCUENTAS -----------------------------
@@ -358,40 +339,5 @@ CREATE TABLE `tb_surveys_ips_odontology`
     CONSTRAINT `fk_surveys_ips_odontology_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
--- Vista de los requerimiento.
-DROP VIEW if EXISTS `vi_requests`;
-CREATE VIEW `vi_requests` AS
-SELECT 
-`t1`.*,
-CONCAT(`t2`.`name`, ' ', `t2`.`lastName`) AS `name`,
-`t2`.`cellphone`,
-`t2`.`email`
-FROM `tb_requests` `t1` 
-INNER JOIN `tb_persons` `t2` ON `t2`.`dni` = `t1`.`dni`;
-
--- Vista de los casos activos.
-DROP VIEW if EXISTS `vi_cases`;
-CREATE VIEW `vi_cases` AS
-SELECT 
-t1.`id`,
-t1.`date`,
-t1.`dni`,
-t2.`dniType`,
-CONCAT(t2.`name`, ' ', t2.`lastName`) AS `name`,
-t2.`sex`,
-t2.`birthDate`,
-t2.`cellphone`,
-t2.`email`,
-t2.`address`,
-t3.`name` AS `eps`,
-t2.`regime`,
-t2.`sisben`,
-t4.`description` AS `service`,
-t1.`accompaniment`,
-t1.`status`
-FROM `tb_requests` t1
-INNER JOIN `tb_persons` t2 ON t2.`dni` = t1.`dni`
-INNER JOIN `tb_eps` t3 ON t2.`eps` = t2.`eps`
-INNER JOIN `tb_requests_services` t4 ON t4.`id` = t1.`service`;
 
 SET FOREIGN_KEY_CHECKS = 1; -- Deshabilitamos las llaves foraneas
