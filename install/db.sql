@@ -106,7 +106,7 @@ CREATE TABLE `tb_sac_cases`
     `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
     `status` BIT NOT NULL DEFAULT b'1',
     `user` INT NOT NULL,
-    `dni` INT NOT NULL,
+    `dni` VARCHAR(15) NOT NULL,
     `eps` INT NOT NULL,
     `requiredAttention` INT NOT NULL,
     `note` VARCHAR(400),
