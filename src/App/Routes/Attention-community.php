@@ -24,7 +24,8 @@ Routes::put("cases/observations/{id:int}", [CasesController::class, 'putObservat
 Routes::delete("cases/observations/{id:int}", [CasesController::class, 'deleteObservations']); // Rgistar un observación al caso
 
 // Servicios prestados
-Routes::get('services', [AttentionCommunityController::class, 'getServices']);
+
+Routes::get('required-attentions', [AttentionCommunityController::class, 'getRequiredAttentions']);
 Routes::post('services', [AttentionCommunityController::class, 'postService']);
 Routes::put('services/{id:int}', [AttentionCommunityController::class, 'putService']);
 

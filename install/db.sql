@@ -19,7 +19,7 @@ CREATE TABLE `tb_users`
 
 -- Insertamos el primero usuario
 INSERT INTO `tb_users`
-VALUES(1, NOW(),'1007244088', 'DAYANNA', 'PINTO', 'HEILERNOVA', 'HEILERNOVA@GMAIL.COM', '$2y$04$A8dGLVylvwo/0eLebRIam.jJ6xLqfrnMKay2m1xB7cmptEYAyGp9.', '', '1', 0);
+VALUES(1, NOW(),'1006783343', 'DAYANNA', 'PINTO', 'DAYANNA', 'DAYANAPINTO22@GMAIL.COM', '$2y$04$A8dGLVylvwo/0eLebRIam.jJ6xLqfrnMKay2m1xB7cmptEYAyGp9.', '', '1', 0);
 
 -- EPS
 DROP TABLE if EXISTS `tb_eps`;
@@ -97,6 +97,16 @@ CREATE TABLE `tb_sac_cases_required_attentions`
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `attention` VARCHAR(20) NOT NULL
 );
+
+INSERT INTO `tb_sac_cases_required_attentions`
+VALUES
+(1, 'Portabilidad'),
+(2, 'Seguimiento a traslado'),
+(3, 'Cambio de IPS'),
+(4, 'Recepción de PQR'),
+(5, 'Asesoria CET'),
+(6, 'Acompañamiento preferencial'),
+(7, 'Traslado SAT');
 
 -- Casos
 DROP TABLE if EXISTS `tb_sac_cases`;

@@ -64,4 +64,9 @@ class AttentionCommunityController extends AppBaseController
             'person'=>$person
         ];
     }
+
+    function getRequiredAttentions(){
+        // return [];
+        return $this->database->query("SELECT * FROM tb_sac_cases_required_attentions")->fetch_all(MYSQLI_ASSOC);
+    }
 }
