@@ -33,7 +33,8 @@ class PersonsController extends AppBaseController
         $result = $this->_personModel->insert($this->getBody());
 
         if ($result){
-
+            $res->status = true;
+            $res->data = $result;
         }else{
             $code = mysqli_errno($this->_personModel->database->getConnection());
             if ($code == 1062){
