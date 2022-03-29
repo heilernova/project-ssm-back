@@ -9,7 +9,7 @@ class PersonDB
     public string $date;
     public string $name = "";
     public string $lastName = "";
-    public bool|null $sex = null;
+    public string|null $sex = null;
     public string|null $birthDate = null;
     public int|null $age = null;
     public string $cellphone = "";

@@ -62,7 +62,7 @@ class PersonsController extends AppBaseController
             $res->status = $this->_personModel->update($dni, $data);
             if ($res->status){
                 $this->_personModel->commit();
-                $res->data = new PersonDB($data);
+                $res->data = $this->database->execute("SELECT * from tb_persons where dni=?", [$dni])->fecthObject(PersonDB::class);
                 $res->status =  true;
             }else{
                 $res->message->content[] = "No se actualizar al información";
