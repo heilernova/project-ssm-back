@@ -16,10 +16,10 @@ class CaseDB
     public string|null $email = null;
     public string $address = "";
     public string $eps = "";
-    public int $regime = 0;
-    public int $sisben = 0;
-    public string $service = "";
-    public string $accompaniment = "";
+    public int|null $regime = 0;
+    public int|null $sisben = 0;
+    public string $requiredAttention = "";
+    public string $note = "";
     public bool $status = false;
     public array $observations = [];
 

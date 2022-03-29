@@ -12,14 +12,14 @@ class ObservationsModel extends AppBaseModel
 
     public function __construct()
     {
-        parent::__construct("tb_requests_observations");
+        parent::__construct("tb_sac_cases_comments");
     }
 
     public function insert($id, string $content):object|null
     {
         $data = [
             "user" => App::getUser()->id,
-            "request" => $id,
+            "case" => $id,
             "content" => $content,
         ];
 
@@ -27,7 +27,7 @@ class ObservationsModel extends AppBaseModel
         if ($ok->result){
             $this->database->commit();
             $id = $ok->insertId;
-            return $this->database->execute("SELECT * FROM tb_requests_observations WHERE id = $id")->fecthObject();
+            return $this->database->execute("SELECT * FROM tb_sac_cases_comments WHERE id = $id")->fecthObject();
         }
         return null;
     }

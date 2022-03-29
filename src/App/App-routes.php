@@ -10,6 +10,7 @@ use HNova\Api\Routes;
 use HNova\Api\Routes\Router;
 
 Routes::post("auth", [AuthController::class, 'autenticate']);
+Routes::get("auth", function(){ return true;}, [AppGuards::authenticate()]);
 
 require "Routes/Eps.php";
 require "Routes/Persons.php";

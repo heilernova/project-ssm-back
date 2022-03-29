@@ -10,13 +10,14 @@ use HNova\Api\Routes;
 
 // Rutas Atención  a la comunidad
 Routes::parents("attention-community", [AppGuards::authenticate()]);
-// Routes::parents("attention-community");
+Routes::parents("attention-community");
 
 // Casosos
 Routes::get("cases/{id:int}" ,[CasesController::class]);
 Routes::post("cases", [CasesController::class]);
 Routes::put("cases/{id:int}", []);
 Routes::delete("cases/{id:int}", [CasesController::class]);
+Routes::patch("cases/{id:int}/close", [CasesController::class, 'patchClose']);
 
 Routes::post("cases/{id:int}/observations", [CasesController::class, 'postObservations']); // Rgistar un observación al caso
 Routes::put("cases/observations/{id:int}", [CasesController::class, 'putObservations']); // Rgistar un observación al caso

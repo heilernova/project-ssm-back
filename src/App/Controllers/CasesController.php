@@ -37,10 +37,10 @@ class CasesController extends AppBaseController
     /**
      * Registra un nuevo caso en la base de datos.
      */
-    function post():Response{
+    function post(){
         $ok = $this->_cases->insert($this->getBody());
-        return new Response($ok);
-    }
+        return $ok;
+    }   
 
     /**
      * Actualiza la información de un caso.
@@ -62,6 +62,12 @@ class CasesController extends AppBaseController
     function putObservations(int $id):Response{
         return new Response($this->_observations->update($id, $this->getBody()));
     }
+
+    function patchClose(int $id){
+        return $this->_cases->closeCase($id);
+    }
+
+
     function deleteObservations(int $id):Response{
         return new Response($this->_observations->delete($id));
     }

@@ -46,15 +46,22 @@ class AttentionCommunityController extends AppBaseController
         return new Response(null);
     }
 
-    function getUsers(string $dni):Response{
-        $sql = "SELECT t1.*, t2.name as `epsName` FROM tb_persons t1 INNER JOIN tb_eps t2 ON t2.id = t1.eps WHERE dni=?";
-        $person = $this->database->execute($sql, [$dni])->fecthObject(PersonRequestDB::class);
+    function getUsers(string $dni){
 
-        if ($person){
-            $res = $this->database->query("SELECT * FROM tb_requests WHERE dni=? ORDER BY id DESC LIMIT 1", [$dni])->fetch_assoc();
-            $person->lastRequest = $res;
-        }
+        $person = $this->database->query("SELECT * FROM tb_persons WHERE dni=?", [$dni])->fetch_assoc();
+        // $sql = "SELECT t1.*, t2.name as `epsName` FROM tb_persons t1 INNER JOIN tb_eps t2 ON t2.id = t1.eps WHERE dni=?";
+        // $person = $this->database->execute($sql, [$dni])->fecthObject(PersonRequestDB::class);
 
-        return new Response($person);
+        // if ($person){
+        //     $res = $this->database->query("SELECT * FROM tb_requests WHERE dni=? ORDER BY id DESC LIMIT 1", [$dni])->fetch_assoc();
+        //     $person->lastRequest = $res;
+        // }else{
+        //     $person = $this->database->query("SELECT * ");
+        // }
+
+        // return new Response($person);
+        return  [
+            'person'=>$person
+        ];
     }
 }

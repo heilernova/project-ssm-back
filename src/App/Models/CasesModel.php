@@ -14,14 +14,14 @@ class CasesModel extends AppBaseModel
 
     public function __construct()
     {
-        parent::__construct("tb_requests");
+        parent::__construct("tb_sac_cases");
     }
 
     public function get(int $id = null){
         $where_id = $id ? "AND id=?" : "";
-        $where_request = $id ? "AND request=?" : "";
+        $where_request = $id ? "AND `case`=?" : "";
         $sql_request = "SELECT * FROM `vi_cases` WHERE `status`=1 $where_id ORDER BY `id` DESC";
-        $sql_observactions = "SELECT t1.* FROM tb_requests_observations t1 INNER JOIN tb_requests t2 ON t2.id=t1.request AND t2.`status`=1 $where_request ORDER BY t1.id ASC";
+        $sql_observactions = "SELECT t1.* FROM tb_sac_cases_comments t1 INNER JOIN tb_sac_cases t2 ON t2.id=t1.case AND t2.`status`=1 $where_request ORDER BY t1.id ASC";
         
         if ($id){
             $req = $this->database->execute($sql_request, [$id])->fecthObject(CaseDB::class);
@@ -41,16 +41,17 @@ class CasesModel extends AppBaseModel
                 $list_observations = array_reduce($obs, function($carry, CaseObservationDB $item) use ($id){
                     static $carry = [];
                     if ($item->valid($id)){
+                        // echo  json_encode($item);
                         $carry[] = $item;
                     }
                     return $carry;
                 });
-
                 if (is_array($list_observations)) $item->observations = $list_observations;
     
                 return $item;
             }, $req);
-
+            
+            // return $obs;
             return $req;
         }
     }
@@ -71,6 +72,16 @@ class CasesModel extends AppBaseModel
         }else{
             return null;
         }
+    }
+
+    function closeCase($id):bool
+    {
+        $ok = $this->database->update(['status'=>false], ['id=?', [$id]])->result;
+        if ($ok){
+            $this->database->commit();
+            return true;
+        }
+        return false;
     }
 
     /**
