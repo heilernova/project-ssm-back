@@ -349,5 +349,29 @@ CREATE TABLE `tb_surveys_ips_odontology`
     CONSTRAINT `fk_surveys_ips_odontology_dni_persons` FOREIGN KEY(`dni`) REFERENCES `tb_persons`(`dni`) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
+DROP VIEW IF EXISTS `vi_surveys_ips_pharmacy`;
+CREATE VIEW `vi_surveys_ips_pharmacy` AS
+SELECT 
+t1.id,
+t1.date,
+CONCAT(t2.name, ' ', t2.lastName) AS 'pollster',
+t3.dni,
+t3.dniType,
+UPPER(t3.name) AS 'name',
+UPPER(t3.lastName) AS 'lastName',
+t3.sex,
+t3.cellphone,
+upper(t3.address) AS 'address',
+upper(t1.ask01) AS 'ask01',
+t1.ask02,
+t1.ask03,
+t1.ask04,
+t1.ask05,
+t1.ask06,
+t1.ask07,
+t1.ask08
+FROM tb_surveys_ips_pharmacy t1
+INNER JOIN tb_users t2 ON t1.user = t2.id
+INNER JOIN tb_persons t3 ON t3.dni = t1.dni;
 
 SET FOREIGN_KEY_CHECKS = 1; -- Deshabilitamos las llaves foraneas

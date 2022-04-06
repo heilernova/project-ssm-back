@@ -2,8 +2,6 @@
     "name": "heilernova/sercretaria-de-salud",
     "autoload": {
         "psr-4": {
-            "Ssm\\": "src/Ssm/",
-            "App\\": "src/App/"
         }
     },
     "authors": [
