@@ -1,0 +1,14 @@
+{
+    "require": {
+        "hnova/api": "dev-main",
+        "phpoffice/phpspreadsheet": "^1.22"
+    },
+    "scripts": {
+        "nv": "HNova\\Api\\Scripts\\Script::execute"
+    },
+    "autoload": {
+        "psr-4": {
+            "ApiRest\\": "src/"
+        }
+    }
+}

@@ -1,0 +1,3 @@
+INSERT INTO `tb_eps` VALUES
+(1, 'SIN AFILIACIÓN', 0),
+(2, 'NUEVA EPS', 0);
