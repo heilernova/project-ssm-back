@@ -34,3 +34,4 @@ fun_surveys_bad_regular_okey(`t1`.`ask08`) AS 'ask08'
 FROM `tb_surveys_ips_pharmacy` `t1`
 INNER JOIN `tb_users` `t2` ON `t1`.`user` = `t2`.`id`
 INNER JOIN `tb_persons` `t3` ON `t3`.`dni` = `t1`.`dni`
+ORDER BY `id`;
