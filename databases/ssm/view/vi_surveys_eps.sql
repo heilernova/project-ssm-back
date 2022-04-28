@@ -35,4 +35,5 @@ fun_surveys_yes_no(`t1`.`ask03`) AS 'ask03',
 `t1`.`ask13`
 FROM `tb_surveys_eps` `t1`
 INNER JOIN `tb_users` `t2` ON `t1`.`user` = `t2`.`id`
-INNER JOIN `tb_persons` `t3` ON `t3`.`dni` = `t1`.`dni`;
+INNER JOIN `tb_persons` `t3` ON `t3`.`dni` = `t1`.`dni`
+ORDER BY `id`;
