@@ -2,7 +2,7 @@ DROP VIEW IF EXISTS `vi_surveys_ips_hospitalization`;
 CREATE VIEW `vi_surveys_ips_hospitalization` AS
 SELECT 
 `t1`.`id`,
-`t1`.date,
+CONVERT_TZ(`t1`.`date`, '+00:00', '-05:00') as 'date',
 `t2`.`id` AS 'pollsterId',
 CONCAT(`t2`.`name`, ' ', `t2`.`lastName`) AS 'pollster',
 `t3`.`dni`,
@@ -10,6 +10,7 @@ CONCAT(`t2`.`name`, ' ', `t2`.`lastName`) AS 'pollster',
 UPPER(`t3`.`name`) AS 'name',
 UPPER(`t3`.`lastName`) AS 'lastName',
 `t3`.`sex`,
+IF(`t3`.`birthDate` is null, 0, TIMESTAMPDIFF(YEAR, `t3`.`birthDate`, NOW())),
 `t3`.`cellphone`,
 upper(`t3`.`address`) AS 'address',
 CASE
